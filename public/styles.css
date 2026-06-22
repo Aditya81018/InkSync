@@ -14,7 +14,8 @@
   --color-muted-soft: #9a9a9a;
   --color-hairline: #e5e5e5;
   --color-hairline-soft: #f0f0f0;
-  --color-canvas: #fffaf0; /* Cream-tinted white */
+  --color-canvas: #fffaf0;
+  /* Cream-tinted white */
   --color-surface-soft: #faf5e8;
   --color-surface-card: #f5f0e0;
   --color-surface-strong: #ebe6d6;
@@ -26,7 +27,8 @@
 
   /* Brand Accents */
   --color-brand-pink: #ff4d8b;
-  --color-brand-teal: #1a3a3a; /* Deep teal-green */
+  --color-brand-teal: #1a3a3a;
+  /* Deep teal-green */
   --color-brand-lavender: #b8a4ed;
   --color-brand-peach: #ffb084;
   --color-brand-ochre: #e8b94a;
@@ -312,20 +314,46 @@ img {
 /* Hero Section */
 .hero-band {
   padding-top: var(--spacing-section);
-  padding-bottom: var(--spacing-section);
+  padding-bottom: 280px;
+  /* Space for the mountain background at the bottom */
+  background-color: var(--color-canvas);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-band::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('assets/footer_mountains.png');
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.4;
+  /* Faded lower opacity for background mountains */
+  z-index: 1;
 }
 
 .hero-grid {
-  display: grid;
-  grid-template-columns: 7fr 5fr;
-  gap: var(--spacing-xxl);
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  /* Position content above the background mountains */
 }
 
 .hero-content {
   display: flex;
-  flex-direction: flex-start;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .badge-pill {
@@ -336,20 +364,22 @@ img {
   padding: 4px 12px;
   border-radius: var(--rounded-pill);
   display: inline-block;
-  align-self: flex-start;
+  align-self: center;
   margin-bottom: var(--spacing-md);
-  border: 1px solid rgba(0,0,0,0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 /* Typography styles matching guidelines */
 .display-xl {
   font-family: var(--font-sans);
-  font-size: 64px; /* Using fallback size for Inter */
+  font-size: 64px;
+  /* Using fallback size for Inter */
   font-weight: 500;
   line-height: 1.0;
   letter-spacing: -2.5px;
   color: var(--color-ink);
   margin-bottom: var(--spacing-md);
+  text-shadow: 0 2px 10px var(--color-canvas), 0 2px 4px var(--color-canvas);
 }
 
 .body-md {
@@ -359,34 +389,13 @@ img {
   line-height: 1.55;
   color: var(--color-body);
   margin-bottom: var(--spacing-xl);
+  text-shadow: 0 2px 8px var(--color-canvas);
 }
 
 .hero-actions {
   display: flex;
   gap: var(--spacing-md);
-}
-
-.hero-illustration-card {
-  background-color: var(--color-surface-soft);
-  border-radius: var(--rounded-xl);
-  padding: var(--spacing-md);
-  border: 1px solid var(--color-hairline-soft);
-  display: flex;
-  align-items: center;
   justify-content: center;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-}
-
-.hero-illustration-card img {
-  border-radius: var(--rounded-lg);
-  width: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.hero-illustration-card:hover img {
-  transform: scale(1.02);
 }
 
 /* Section Header */
@@ -480,6 +489,7 @@ img {
   background-color: var(--color-brand-teal);
   color: var(--color-on-dark);
 }
+
 .feature-card-teal .feature-card-graphic {
   background: rgba(255, 255, 255, 0.05);
 }
@@ -494,6 +504,7 @@ img {
   color: var(--color-ink);
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .feature-card-lavender .feature-card-graphic {
   background: rgba(0, 0, 0, 0.05);
 }
@@ -503,6 +514,7 @@ img {
   color: var(--color-ink);
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .feature-card-peach .feature-card-graphic {
   background: rgba(0, 0, 0, 0.05);
 }
@@ -512,6 +524,7 @@ img {
   color: var(--color-ink);
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .feature-card-ochre .feature-card-graphic {
   background: rgba(0, 0, 0, 0.05);
 }
@@ -521,6 +534,7 @@ img {
   color: var(--color-ink);
   border: 1px solid var(--color-hairline-soft);
 }
+
 .feature-card-cream .feature-card-graphic {
   background: rgba(0, 0, 0, 0.02);
   display: flex;
@@ -529,6 +543,7 @@ img {
   align-items: center;
   gap: var(--spacing-sm);
 }
+
 .feature-card-cream .feature-card-graphic button {
   height: 36px;
   padding: 0 var(--spacing-sm);
@@ -581,17 +596,39 @@ img {
 }
 
 @keyframes moveCursor {
-  0% { transform: translate(-80px, 10px); }
-  30% { transform: translate(10px, -15px); }
-  60% { transform: translate(60px, 15px); }
-  100% { transform: translate(-80px, 10px); }
+  0% {
+    transform: translate(-80px, 10px);
+  }
+
+  30% {
+    transform: translate(10px, -15px);
+  }
+
+  60% {
+    transform: translate(60px, 15px);
+  }
+
+  100% {
+    transform: translate(-80px, 10px);
+  }
 }
 
 @keyframes moveCursor2 {
-  0% { transform: translate(70px, -20px); }
-  35% { transform: translate(-30px, 20px); }
-  70% { transform: translate(-80px, -10px); }
-  100% { transform: translate(70px, -20px); }
+  0% {
+    transform: translate(70px, -20px);
+  }
+
+  35% {
+    transform: translate(-30px, 20px);
+  }
+
+  70% {
+    transform: translate(-80px, -10px);
+  }
+
+  100% {
+    transform: translate(70px, -20px);
+  }
 }
 
 /* Avatar bubble joins */
@@ -618,8 +655,15 @@ img {
 }
 
 @keyframes popIn {
-  from { transform: scale(0.6); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Smooth Strokes Demo Graph */
@@ -703,12 +747,20 @@ img {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.color-dot.pink { background-color: var(--color-brand-pink); }
-.color-dot.teal { background-color: var(--color-brand-teal); }
-.color-dot.ochre { background-color: var(--color-brand-ochre); }
+.color-dot.pink {
+  background-color: var(--color-brand-pink);
+}
+
+.color-dot.teal {
+  background-color: var(--color-brand-teal);
+}
+
+.color-dot.ochre {
+  background-color: var(--color-brand-ochre);
+}
 
 /* Download simulation button */
 .download-btn-mock {
@@ -725,6 +777,7 @@ img {
   cursor: pointer;
   transition: transform 0.2s ease;
 }
+
 .download-btn-mock:hover {
   transform: scale(1.03);
 }
@@ -931,9 +984,17 @@ img {
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 /* Footer Section */
@@ -941,7 +1002,8 @@ img {
   background-color: var(--color-surface-soft);
   color: var(--color-body);
   padding-top: 80px;
-  padding-bottom: 0px; /* Overlap by the mountain graphic */
+  padding-bottom: 0px;
+  /* Overlap by the mountain graphic */
   border-top: 1px solid var(--color-hairline-soft);
   position: relative;
 }
@@ -1025,32 +1087,23 @@ img {
 
 /* Tablet (768px - 1024px) */
 @media (max-width: 1024px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
-    text-align: center;
+  .hero-band {
+    padding-bottom: 220px;
+    /* Space for background mountains on tablet */
   }
-  
-  .badge-pill {
-    align-self: center;
-  }
-  
-  .hero-actions {
-    justify-content: center;
-  }
-  
+
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .features-grid-row-2 {
     grid-column: span 1;
   }
-  
+
   .testimonials-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .footer-nav {
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-xl);
@@ -1063,21 +1116,22 @@ img {
     font-size: 36px;
     letter-spacing: -1.5px;
   }
-  
+
   .display-lg {
     font-size: 32px;
     letter-spacing: -1px;
   }
-  
+
   .display-sm {
     font-size: 22px;
   }
-  
+
   .hero-band {
     padding-top: var(--spacing-xl);
-    padding-bottom: var(--spacing-xl);
+    padding-bottom: 160px;
+    /* Space for background mountains on mobile */
   }
-  
+
   .nav-links {
     display: none;
     flex-direction: column;
@@ -1090,43 +1144,43 @@ img {
     padding: var(--spacing-md) var(--spacing-lg);
     gap: var(--spacing-md);
   }
-  
+
   .nav-links.mobile-open {
     display: flex;
   }
-  
+
   .nav-ctas {
     display: none;
   }
-  
+
   .hamburger {
     display: flex;
   }
-  
+
   .features-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .testimonials-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .cta-band-illustrated {
     flex-direction: column-reverse;
     text-align: center;
     padding: var(--spacing-xl);
   }
-  
+
   .cta-illustration {
     width: 150px;
     height: 150px;
   }
-  
+
   .footer-nav {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
   }
-  
+
   .footer-bottom {
     flex-direction: column;
     gap: var(--spacing-sm);
