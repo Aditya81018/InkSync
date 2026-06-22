@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InkSync — Real-Time Collaborative Canvas & Drawing Board</title>
+  <meta name="description" content="InkSync is a friendly, real-time shared drawing board for teams, creators, and brainstormers. Start sketching together in custom rooms instantly without any registration.">
+  <meta name="keywords" content="drawing, real-time, collaboration, shared canvas, virtual whiteboard, interactive whiteboard, team sketching, draw together">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Small pen/brush SVG favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="header">
+    <div class="container top-nav">
+      <a href="#" class="logo-group" id="nav-logo">
+        <div class="logo-icon"></div>
+        <h1 class="logo-text">Ink<span>Sync</span></h1>
+      </a>
+      <ul class="nav-links" id="menu-links">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#try-it" class="nav-link">Create Room</a></li>
+        <li><a href="#reviews" class="nav-link">Testimonials</a></li>
+      </ul>
+      <div class="nav-ctas" id="nav-actions">
+        <button class="button-link" id="btn-signin">Sign In</button>
+        <button class="button-primary" id="btn-launch" onclick="document.getElementById('try-it').scrollIntoView({behavior: 'smooth'})">Launch Board</button>
+      </div>
+      <button class="hamburger" id="hamburger-menu" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-band">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="badge-pill">🎉 Real-time collaboration v1.0</span>
+          <h2 class="display-xl">Draw. Sync. Create together in real-time.</h2>
+          <p class="body-md">InkSync is a shared digital canvas for teams, friends, and creators. Share a room URL, grab your brushes, and see each other's strokes live. No installation, no login — just collaborative sketching.</p>
+          <div class="hero-actions">
+            <button class="button-primary" id="hero-btn-start" onclick="document.getElementById('try-it').scrollIntoView({behavior: 'smooth'})">Create Free Board</button>
+            <button class="button-secondary" id="hero-btn-learn" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">Explore Features</button>
+          </div>
+        </div>
+        <div class="hero-illustration-card" id="hero-image-container">
+          <img src="assets/hero_illustration.png" alt="Collaborative drawing board with cute clay characters sketching together" width="500" height="500" loading="eager">
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Capabilities</span>
+          <h3 class="display-lg">Everything you need for collective creativity.</h3>
+        </div>
+
+        <div class="features-grid">
+          <!-- Teal Card: Real-time Sync -->
+          <div class="feature-card feature-card-teal reveal" id="feature-sync">
+            <div class="feature-card-content">
+              <h4 class="display-sm">Sub-100ms Sync</h4>
+              <p class="feature-card-desc">Every line, curve, and dot you draw is broadcast instantly to all connected users in the room, creating a seamless joint whiteboard experience.</p>
+            </div>
+            <div class="feature-card-graphic">
+              <!-- Interactive visual representation of sync -->
+              <div class="canvas-preview-container">
+                <canvas class="preview-canvas" id="canvas-sync-anim"></canvas>
+                <div class="cursor-pill" id="cursor-p1">✏️ Sam</div>
+                <div class="cursor-pill c2" id="cursor-p2">🖌️ Leo</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pink Card: Collaborative Rooms -->
+          <div class="feature-card feature-card-pink reveal" id="feature-rooms">
+            <div class="feature-card-content">
+              <h4 class="display-sm">Private Canvas Rooms</h4>
+              <p class="feature-card-desc">Instantly set up custom named rooms. Draw in complete isolation with your select team. Share the URL to invite participants to collaborate.</p>
+            </div>
+            <div class="feature-card-graphic" style="display:flex; justify-content:center; align-items:center;">
+              <!-- Simulated join actions -->
+              <div class="avatar-joins-container">
+                <div class="avatar-bubble" style="background-color: var(--color-brand-ochre); color: var(--color-ink); font-weight:700;">A</div>
+                <div class="avatar-bubble" style="background-color: var(--color-brand-lavender); color: var(--color-ink); animation-delay: 0.8s;">K</div>
+                <div class="avatar-bubble" style="background-color: var(--color-brand-mint); color: var(--color-brand-teal); animation-delay: 1.6s;">M</div>
+                <div class="avatar-bubble" style="background-color: var(--color-brand-pink); border-color:#fff; animation-delay: 2.4s;">+4</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lavender Card: Smooth Drawing Engine -->
+          <div class="feature-card feature-card-lavender reveal" id="feature-engine">
+            <div class="feature-card-content">
+              <h4 class="display-sm">Smoother Strokes</h4>
+              <p class="feature-card-desc">No more shaky hand drawings. Our canvas rendering context automatically interpolates points to create smooth curves and elegant vector-like paths.</p>
+            </div>
+            <div class="feature-card-graphic">
+              <div class="stroke-comparison">
+                <div class="stroke-type">
+                  <span>Standard Mouse</span>
+                  <div class="stroke-line jagged"></div>
+                </div>
+                <div class="stroke-type">
+                  <span>InkSync Smooth</span>
+                  <div class="stroke-line smooth"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Peach Card: Expressive Toolkit -->
+          <div class="feature-card feature-card-peach reveal" id="feature-tools">
+            <div class="feature-card-content">
+              <h4 class="display-sm">Rich Toolkit</h4>
+              <p class="feature-card-desc">Quickly toggle between the brush and eraser, customize the line width dynamically, and choose from a curated palette of vibrant colors.</p>
+            </div>
+            <div class="feature-card-graphic">
+              <div class="tool-palette-mock">
+                <div class="tool-palette-btn active">🖌️</div>
+                <div class="tool-palette-btn">🧽</div>
+                <div class="color-dot pink"></div>
+                <div class="color-dot teal"></div>
+                <div class="color-dot ochre"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ochre Card: Instant Export -->
+          <div class="feature-card feature-card-ochre reveal" id="feature-export">
+            <div class="feature-card-content">
+              <h4 class="display-sm">High-Res PNG Export</h4>
+              <p class="feature-card-desc">Save your hard work instantly. One click generates a high-definition download of your collaborative canvas directly onto your device.</p>
+            </div>
+            <div class="feature-card-graphic" style="display:flex; justify-content:center; align-items:center;">
+              <div class="download-btn-mock" id="btn-export-mock">
+                <span>💾 Download PNG</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cream Card: Local Undo/Redo -->
+          <div class="feature-card feature-card-cream reveal" id="feature-undo">
+            <div class="feature-card-content">
+              <h4 class="display-sm">Full Action History</h4>
+              <p class="feature-card-desc">Maintain local control over your creative process. Smoothly undo and redo brush strokes anytime to fix mistakes without disrupting others.</p>
+            </div>
+            <div class="feature-card-graphic">
+              <button class="button-secondary">↩️ Undo</button>
+              <button class="button-secondary">↪️ Redo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Create Room Form Section -->
+    <section class="interaction-section" id="try-it">
+      <div class="container interaction-box">
+        <h3 class="display-sm">Start drawing in seconds</h3>
+        <p class="interaction-subtitle">Enter a room name below or click launch to join a random drawing room.</p>
+        <form class="room-form" id="create-room-form" onsubmit="event.preventDefault();">
+          <input type="text" class="text-input" id="room-name-input" placeholder="Enter room name (e.g. design-sprint)" required minlength="3">
+          <button type="submit" class="button-primary" id="room-submit-btn">Go to Board</button>
+        </form>
+        <p class="room-response-message" id="room-status-message"></p>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="reviews">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Love from Creators</span>
+          <h3 class="display-lg">What artists and product teams are saying.</h3>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal" id="review-1">
+            <p class="testimonial-text">"InkSync has completely replaced bloated whiteboard tools for our visual team. We load a room, map out layouts, and export the file in minutes. Simple, beautiful, and fast."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar pink">H</div>
+              <div class="author-info">
+                <h4>Hannah Kim</h4>
+                <p>Lead UI/UX Designer, DesignCo</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal" id="review-2">
+            <p class="testimonial-text">"I use InkSync during online lectures. Being able to quickly create a room and let students draw answers with zero sign-ups has made remote teaching a highly interactive delight."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar lavender">M</div>
+              <div class="author-info">
+                <h4>Prof. Marcus Vance</h4>
+                <p>Digital Media Educator, Art Academy</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal" id="review-3">
+            <p class="testimonial-text">"The brush stroke smoothing is incredible! Even with a laptop trackpad, the drawings come out looking clean. Real-time speed is amazing."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">O</div>
+              <div class="author-info">
+                <h4>Owen Davies</h4>
+                <p>Independent Illustrator</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pre-footer CTA Illustrated Band -->
+    <section class="cta-band-section">
+      <div class="container">
+        <div class="cta-band-illustrated reveal" id="prefooter-cta">
+          <div class="cta-content">
+            <h3 class="display-md">Turn your group sketches into reality.</h3>
+            <p class="cta-subtitle">Jump on a canvas with your team and co-create anything you can imagine.</p>
+            <button class="button-primary" id="cta-btn-launch" onclick="document.getElementById('try-it').scrollIntoView({behavior: 'smooth'})">Launch InkSync Board</button>
+          </div>
+          <div class="cta-illustration" id="cta-mascot-container">
+            <img src="assets/footer_mascot.png" alt="Cute blue claymation character holding a paintbrush" width="200" height="200" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-nav">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="logo-icon"></div>
+            <h4 class="logo-text">Ink<span>Sync</span></h4>
+          </div>
+          <p class="footer-desc">Real-time collaborative drawing engine powered by speed and visual simplicity.</p>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Product</h5>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#features">Features</a></li>
+            <li class="footer-link"><a href="#try-it">Join Room</a></li>
+            <li class="footer-link"><a href="#">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Resources</h5>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#">Developer Docs</a></li>
+            <li class="footer-link"><a href="#">Canvas API</a></li>
+            <li class="footer-link"><a href="#">Tutorials</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Legal</h5>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#">Privacy Policy</a></li>
+            <li class="footer-link"><a href="#">Terms of Use</a></li>
+            <li class="footer-link"><a href="#">Support</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 InkSync Project. Built with love and claymatians.</p>
+        <p>All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
