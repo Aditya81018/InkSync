@@ -278,6 +278,100 @@
     </div>
   </footer>
 
+  <!-- Real-time Collaborative Drawing Board Workspace -->
+  <div id="drawing-workspace" class="workspace-container hidden">
+    <!-- Workspace Top Bar -->
+    <header class="workspace-header">
+      <div class="workspace-logo-group" id="workspace-logo">
+        <div class="logo-icon"></div>
+        <span class="logo-text">Ink<span>Sync</span></span>
+      </div>
+      
+      <div class="workspace-room-info">
+        <div class="room-badge" id="room-id-display">Room: #loading</div>
+        <button class="button-secondary btn-sm" id="btn-copy-link">
+          <span>🔗 Copy Link</span>
+        </button>
+      </div>
+
+      <div class="workspace-users-control">
+        <div class="avatar-stack" id="active-avatars">
+          <!-- Populated by JS: dynamic colored circles -->
+        </div>
+        <div class="username-rename-box">
+          <input type="text" class="text-input text-input-sm" id="rename-user-input" placeholder="Your Name" maxlength="15">
+        </div>
+      </div>
+
+      <div class="workspace-header-actions">
+        <button class="button-secondary" id="btn-clear-canvas">🧹 Clear</button>
+        <button class="button-primary" id="btn-export-png">💾 Download PNG</button>
+        <button class="button-link" id="btn-leave-room">Exit Room</button>
+      </div>
+    </header>
+
+    <!-- Workspace Main Layout -->
+    <div class="workspace-main">
+      <!-- Toolbar Panel -->
+      <aside class="workspace-toolbar">
+        <!-- Tools selectors -->
+        <div class="tool-section">
+          <div class="section-title">Tools</div>
+          <div class="tool-group">
+            <button class="tool-btn active" id="tool-brush" title="Brush">✏️ Brush</button>
+            <button class="tool-btn" id="tool-eraser" title="Eraser">🧽 Eraser</button>
+          </div>
+        </div>
+
+        <!-- Size selectors -->
+        <div class="tool-section">
+          <div class="section-title">Brush Size</div>
+          <div class="slider-container">
+            <input type="range" id="brush-size-slider" min="1" max="50" value="5">
+            <span class="slider-value" id="brush-size-value">5px</span>
+          </div>
+        </div>
+
+        <!-- Colors Grid -->
+        <div class="tool-section">
+          <div class="section-title">Colors</div>
+          <div class="colors-grid" id="color-palette">
+            <!-- Custom Claymation palette colors from DESIGN.md -->
+            <button class="color-swatch active" data-color="#0a0a0a" style="background-color: #0a0a0a;" title="Primary Black"></button>
+            <button class="color-swatch" data-color="#ff4d8b" style="background-color: #ff4d8b;" title="Brand Pink"></button>
+            <button class="color-swatch" data-color="#1a3a3a" style="background-color: #1a3a3a;" title="Brand Teal"></button>
+            <button class="color-swatch" data-color="#b8a4ed" style="background-color: #b8a4ed;" title="Brand Lavender"></button>
+            <button class="color-swatch" data-color="#ffb084" style="background-color: #ffb084;" title="Brand Peach"></button>
+            <button class="color-swatch" data-color="#e8b94a" style="background-color: #e8b94a;" title="Brand Ochre"></button>
+            <button class="color-swatch" data-color="#ff6b5a" style="background-color: #ff6b5a;" title="Brand Coral"></button>
+            <div class="custom-color-wrapper">
+              <input type="color" id="custom-color-picker" title="Custom Color">
+              <span class="custom-color-icon">🎨</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- History operations -->
+        <div class="tool-section">
+          <div class="section-title">History</div>
+          <div class="history-actions-group">
+            <button class="button-secondary" id="btn-undo" title="Undo">↩️ Undo</button>
+            <button class="button-secondary" id="btn-redo" title="Redo">↪️ Redo</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Drawing Canvas Area -->
+      <section class="canvas-area">
+        <div class="canvas-wrapper">
+          <canvas id="drawing-canvas"></canvas>
+          <div id="collaborator-cursors" class="cursors-overlay"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
